@@ -1,0 +1,287 @@
+html,
+body {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    position: fixed;
+    margin: 0;
+    padding: 0;
+}
+
+#start {
+    visibility: hidden;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: grey;
+    z-index: 100;
+}
+
+#startFS {
+    position: absolute;
+    left: 35%;
+    top: 45%;
+    height: 10%;
+    width: 30%;
+    background-color: black;
+    border-color: white;
+    border-width: 0.5vh;
+    border-radius: 1vh;
+    color: white;
+    font-size: 4vh;
+}
+
+#map {
+    position: absolute;
+    height: 350%;
+    width: 250%;
+    left: -75%;
+    top: -125%;
+    transform: rotate(-70deg);
+    overflow: hidden;
+}
+
+#car {
+    position: absolute;
+    width: 18px;
+    left: 49.5%;
+    top: 48%;
+    z-index: 10;
+    -webkit-user-select: none; 
+    -webkit-touch-callout: none;
+}
+
+#speedo {
+    position: absolute;
+    left: 2%;
+    top: 2%;
+    font-size: 16 px;
+    color: white;
+    z-index: 20;
+}
+
+#speed {
+    font-family: sans-serif;
+    /* font-weight: bold; */
+    font-size: 1.5vw;
+    position: absolute;
+    color: #AF9;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    text-shadow: 0 0 10px #fff, 0 0 20px #5F9, 0 0 30px #0F7, 0 0 40px #1F4, 0 0 50px rgb(33, 201, 33), 0 0 60px;
+    bottom: 0;
+    left: 37.5%;
+    text-align: center;
+    height: 5%;
+    width: 20%;
+    white-space: pre;
+    
+    margin: 0 auto;
+    padding: 1.5vw;
+    border-radius: 2vw 2vw 0 0;
+    background-color: rgba(0, 0, 0, 0.75);
+    z-index: 30;
+}
+
+#left,
+#right,
+#acc,
+#brake,
+#compass {
+    visibility: hidden;
+    position: absolute;
+    opacity: 0.7;
+    z-index: 30;
+    -webkit-user-select: none; 
+    -webkit-touch-callout: none;
+}
+
+#left {
+    width: 10%;
+    left: 1%;
+    bottom: 1%;
+}
+
+#right {
+    width: 10%;
+    left: 14%;
+    bottom: 1%;
+}
+
+#acc {
+    width: 8%;
+    right: 1%;
+    bottom: 1%;
+}
+
+#brake {
+    width: 12%;
+    right: 10%;
+    bottom: 1%;
+}
+
+#compass {
+    visibility: visible;
+    width: 12%;
+    top: 2%;
+    left: 1%;
+}
+
+#dest {
+    visibility: hidden;
+    position: absolute;
+    width: 20%;
+    left: 50%;
+    top: 48%;
+    text-align: right;
+    font-size: 6.435vh;
+    color: #AF9;
+    transform-origin: left;
+    z-index: 30;
+    transform: rotate(0deg);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    text-shadow: 0 0 10px #fff, 0 0 20px #5F9, 0 0 30px #0F7, 0 0 40px #1F4, 0 0 50px rgb(33, 201, 33);
+}
+
+img[src="./target.png"] {
+    animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+    50% {
+      opacity: 0;
+    }
+}
+
+
+
+
+
+#description {
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+}
+
+#infowindow-content .title {
+    font-weight: bold;
+}
+
+#infowindow-content {
+    display: none;
+}
+
+#map #infowindow-content {
+    display: inline;
+}
+  
+.pac-card {
+    margin: 10px 10px 0 0;
+    border-radius: 2px 0 0 2px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    background-color: #ccc;
+    font-family: Roboto;
+}
+
+#pac-container {
+    padding-bottom: 12px;
+    margin-right: 12px;
+}
+
+.pac-controls {
+    display: inline-block;
+    padding: 5px 11px;
+}
+
+.pac-controls label {
+    font-family: Roboto;
+    font-size: 13px;
+    font-weight: 300;
+}
+
+.pac-item,
+.pac-container,
+.pac-logo {
+    background-color: #223;
+    color: #bbf;
+    opacity: 0.8;
+    font-size: 1.297vh;
+    line-height: 3.704vh;
+}
+.pac-item-query,
+.pac-matched {
+    color: #fff;
+    opacity: 1.0;
+    font-size: 1.852vh;
+    line-height: 3.704vh;
+}
+
+
+
+.transfer-ui {
+    position: absolute;
+    right: 1%;
+    z-index: 30;
+    background-color: #111;
+    opacity: 0.7;
+    color: #fff;
+    font-family: Roboto;
+    font-size: 1.93vh;
+    font-weight: 300;
+    margin-left: 1.67vh;
+    padding: 1.287vh 1.287vh 1.287vh 1.673vh;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    text-overflow: ellipsis;
+    width: 25%;
+}
+
+#pac-input:focus {
+    border-color: #4d90fe;
+}
+
+#title {
+    color: #fff;
+    background-color: #4d90fe;
+    font-size: 25px;
+    font-weight: 500;
+    padding: 6px 12px;
+}
+
+#target {
+    width: 345px;
+}
+
+
+
+#places {
+    top: 17.632vh;
+    visibility: hidden;
+}
+
+#place-address {
+    top: 22.78vh;
+    visibility: hidden;
+}
+
+#pac-input {
+    background-color: #112;
+    border-radius: 0.772vh;
+    border-width: 0;
+    height: 5.792vh;
+    top: 7.722vh
+}
+
+#transfer-type {
+    top: 1.93vh;
+}
+
+input[type=radio] {
+    border: 0px;
+
+    height: 1.5vh;
+}

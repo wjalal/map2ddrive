@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no">
+	<title>2D Driving Simulator</title>
+	<link rel="stylesheet" type="text/css" href="./style.css" />
+</head>
+
+<body>
+
+	<div id="start">
+	<button id="startFS">Start</button>
+	</div>
+
+	<div id="map"></div>
+	
+	<img src="car.png" id="car" oncontextmenu="return false;">
+	<p id="speedo"></p>
+
+	<img id="left" src="left.png" oncontextmenu="return false;">
+	<img id="right" src="right.png" oncontextmenu="return false;">
+	<img id="acc" src="acc.png" oncontextmenu="return false;">
+	<img id="brake" src="brake.png" oncontextmenu="return false;">
+
+	<img id="compass" src="compass.png" oncontextmenu="return false;">
+	<div id="dest">➣</div>
+	<div id="speed">0 km/h  •  0 mph  •  0 m/s</div>
+
+	<div id="transfer-type" class="transfer-ui"><form name="transfer-type-select">
+	<input type="radio" name="transfer-type" checked value="Teleport">Teleport &emsp;
+		<input type="radio" name="transfer-type" value="dest">Set destination
+	</form></div>
+	<input id="pac-input" class="controls transfer-ui" type="text" placeholder="Set location..." >
+	<div id="places" class="transfer-ui">
+	<small><b id="placeNum" >0</b> results found. Switch location:</small>
+	<span style="position: absolute; right:10px">
+		<a id="prev">◄</a>
+		&nbsp; <span id="placeSwitch">0</span> &nbsp;
+		<a id="next">►</a>
+	</span>
+	</div>
+	<div id="place-address" class="transfer-ui">
+	<small id="address">No address found.</small>
+	</div>
+
+	<script type="text/javascript" charset="utf-8" src="./app.js" defer></script>
+	<script type="text/javascript" charset="utf-8" src="https://polyfill.io/v3/polyfill.min.js?features=default" defer></script>
+	<script type="text/javascript" charset="utf-8" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUl72qi5_lz13by91aLVO8S-CykQANdK8&callback=initMap&libraries=places,geometry&v=weekly" defer ></script>
+	
+</body>
+
+</html>
