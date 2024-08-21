@@ -113,13 +113,13 @@ acc = {
         };
     },
     start: function() {
-        if (this.lin != 1.5) {
+        if (this.lin != 3.5) {
             time = 0;
             keepTime = true;
         };
         resSet = true;
         if (Math.trunc(vel.lin) < 0 ) this.lin = 7;
-        this.lin = 1.5;
+        this.lin = 3.5;
     },
     stop: function() {
         this.lin = 0;
@@ -163,12 +163,12 @@ steer = {
     acc: 0,
     start: function() {
         this.vel = this.vel;
-        if ( this.acc != 0.15 ) {
+        if ( this.acc != 0.075 ) {
             steerTime = 0;
             keepSteerTime = true;
         };
         steerSet = true;
-        this.acc = 0.15;
+        this.acc = 0.075;
     },
     stop: function() {
         this.acc = 0;
@@ -369,7 +369,7 @@ window.onload = function () {
             };
         };
 
-        //document.getElementById("speedo").innerHTML =  `<strong><em>Diagnostic:</em></strong><small> Velocity: ${Math.trunc(vel.lin)}; Acceleration: ${(acc.res).toFixed(2)}; Time: ${time.toFixed(3)} s; Steer Velocity: ${(steer.vel).toFixed(3)}; Steer Time: ${steerTime.toFixed(2)}</small>`;
+        document.getElementById("speedo").innerHTML =  `<strong><em>Diagnostic:</em></strong><small> Velocity: ${Math.trunc(vel.lin)}; Acceleration: ${(acc.res).toFixed(2)}; Time: ${time.toFixed(3)} s; Steer Velocity: ${(steer.vel).toFixed(3)}; Steer Time: ${steerTime.toFixed(2)}</small>`;
 
         document.getElementById("speed").innerHTML = Math.trunc(CONV_KPH * vel.lin) + "km/h  |  " +
                                                      Math.trunc(CONV_MPH * vel.lin) + "mph  |  " +
