@@ -240,12 +240,13 @@ function initMap() {
         searchBox.setBounds(map.getBounds());
     });
 
-    searchBox.addListener("places_changed", function() {
+    searchBox.addListener("places_changed", async function () {
         document.getElementById('places').style.visibility = "visible";
         document.getElementById('place-address').style.visibility = "visible";
         places = [];    
-        if (( searchBox.getPlaces() ).length == 0) return;
-        ( searchBox.getPlaces() ).forEach ( function(place) {
+        let pList = await searchBox.getPlaces();
+        if (pList.length == 0) return;
+        pList.forEach ( function(place) {
             if (!place.geometry) {
                 console.log("Returned place contains no geometry");
                 return;
