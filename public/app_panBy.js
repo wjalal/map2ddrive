@@ -159,7 +159,7 @@ acc = {
         };
         resSet = true;
         if (Math.trunc(vel.lin) > 0) this.lin = -115;
-        else this.lin = 65;
+        this.lin = 65;
     }
 };
 
