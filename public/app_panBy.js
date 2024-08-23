@@ -158,7 +158,7 @@ acc = {
             // keepTime = true;
         };
         resSet = true;
-        if (vel.lin > 100) this.lin = -115;
+        if (vel.lin > 100) this.lin = -65;
         else if (vel.lin < -100) this.lin = 65;
         else this.lin = 0, vel.lin = 0;
     }
