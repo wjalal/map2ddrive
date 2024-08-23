@@ -382,31 +382,31 @@ window.onload = function () {
         // if (keepSteerTime) steerTime += 0.03;
         if (acc.res != 0) vel.lin = vel.lin;
 
-        if ( keys.up ) {
-            if ( keys.right || keys.left ) {
-                acc.start(); steer.start();
-            } else {
-                steer.stop(); acc.start();
-            };
-        } else if ( keys.down ) {
-            if ( keys.right || keys.left ) {
-                acc.rev(); steer.start();
-            } else {
-                steer.stop(); acc.rev();
-            };
-        } else if ( keys.ctrl ) {
-            if ( keys.right || keys.left ) {
-                acc.EB(); steer.start();
-            } else {
-                steer.stop(); acc.EB();
-            };
-        } else {
-            if ( keys.right || keys.left ) {
-                acc.stop(); steer.start();
-            } else {
-                steer.stop(); acc.stop();
-            };
-        };
+        // if ( keys.up ) {
+        //     if ( keys.right || keys.left ) {
+        //         acc.start(); steer.start();
+        //     } else {
+        //         steer.stop(); acc.start();
+        //     };
+        // } else if ( keys.down ) {
+        //     if ( keys.right || keys.left ) {
+        //         acc.rev(); steer.start();
+        //     } else {
+        //         steer.stop(); acc.rev();
+        //     };
+        // } else if ( keys.ctrl ) {
+        //     if ( keys.right || keys.left ) {
+        //         acc.EB(); steer.start();
+        //     } else {
+        //         steer.stop(); acc.EB();
+        //     };
+        // } else {
+        //     if ( keys.right || keys.left ) {
+        //         acc.stop(); steer.start();
+        //     } else {
+        //         steer.stop(); acc.stop();
+        //     };
+        // };
 
         document.getElementById("speedo").innerHTML =  `<strong><em>Diagnostic:</em></strong><small> Velocity: ${Math.trunc(vel.lin)}; Acceleration: ${(acc.res).toFixed(2)}; Time: ${getTime().toFixed(3)} s; Steer Velocity: ${(steer.vel).toFixed(3)}; Steer Time: ${getSteerTime().toFixed(2)}</small>`;
 
