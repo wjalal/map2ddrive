@@ -41,20 +41,12 @@ document.getElementById('right').addEventListener ("touchstart", function() {
 });
 document.getElementById('acc').addEventListener ("touchstart", function() {
     keys.up = true; 
-    if ( keys.right || keys.left ) {
-        acc.start(); steer.start();
-    } else {
-        steer.stop(); acc.start();
-    };
+    acc.start();
     document.getElementById('acc').style.opacity = 1;       
 });
 document.getElementById('brake').addEventListener ("touchstart", function() {
     keys.down = true;
-    if ( keys.right || keys.left ) {
-        acc.rev(); steer.start();
-    } else {
-        steer.stop(); acc.rev();
-    };
+    acc.rev();
     document.getElementById('brake').style.opacity = 1;     
 });
 
@@ -92,25 +84,13 @@ document.addEventListener ("keydown", function (e) {
         steer.start();
     } else if ( (e.key == "w") || (e.key == "ArrowUp") ) {
         keys.up = true;
-        if ( keys.right || keys.left ) {
-            acc.start(); steer.start();
-        } else {
-            steer.stop(); acc.start();
-        };
+        acc.start(); 
     } else if ( (e.key == "s") || (e.key == "ArrowDown") ) {
         keys.down = true;
-        if ( keys.right || keys.left ) {
-            acc.rev(); steer.start();
-        } else {
-            steer.stop(); acc.rev();
-        };
+        acc.rev();
     } else if ( e.key == "Control" ) {
         keys.ctrl = true;
-        if ( keys.right || keys.left ) {
-            acc.EB(); steer.start();
-        } else {
-            steer.stop(); acc.EB();
-        };
+        acc.EB();
     };
 });
 
@@ -211,7 +191,6 @@ steer = {
     stop: function() {
         this.acc = 0;
         this.vel = 1;
-        
     },
     vel_: 1,
     get vel() {
