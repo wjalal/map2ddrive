@@ -122,9 +122,9 @@ document.addEventListener ("keyup", function(e) {
 acc = {
     lin: 0,
     get res() {
-        if (Math.trunc(vel.lin_) > 0) {
+        if (Math.trunc(vel.lin_) > 0.0000001) {
             return (this.lin - 0.4);
-        } else if (Math.trunc(vel.lin_) < 0) {
+        } else if (Math.trunc(vel.lin_) < -0.0000001) {
             return (this.lin + 0.07);
         } else {
             return this.lin;
