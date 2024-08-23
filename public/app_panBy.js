@@ -1,23 +1,24 @@
 var map = {}, tCount = {}, stCount = {}, acc = {}, vel = {}, steer = {};
-var ind = 0, h = 0, k = 0, theta = -70, alpha = 0, beta = 0; dLng = 0, dLat = 0, time = 0, steerTime = 0, aR = 1, newWidth = 0, newHeight = 0;
+var ind = 0, h = 0, k = 0, theta = -70, alpha = 0, beta = 0; dLng = 0, dLat = 0, time = 0, steerTime = 0, timeTS = 0, steerTimeTS = 0, aR = 1, newWidth = 0, newHeight = 0;
 var resSet = false, steerSet = false, keepTime = false, keepSteerTime = false, accReset = false, steerReset = false;
 var destCoords = { lat() { return 0; }, lng() { return 0; } };
 const CONV_SI = 1/305.146;
 const CONV_KPH = CONV_SI * 3.6;
 const CONV_MPH = CONV_KPH * 0.621371;
  
+function getTime() {
+    return ((new Date()).getTime() - timeTS) * 0.001;
+};
 
-
-
+function getSteerTime() {
+    return ((new Date()).getTime() - steerTimeTS) * 0.001;
+};
 
 document.getElementById("startFS").addEventListener("touchend", function() {
     document.body.requestFullscreen();
     document.getElementById("start").style.visibility = "hidden";
     window.screen.orientation.lock("landscape-primary");
 });
-
-
-
 
 
 var keys = {
@@ -30,34 +31,42 @@ var keys = {
 
 document.getElementById('left').addEventListener ("touchstart", function() {
     keys.left = true;
-    document.getElementById('left').style.opacity = 1;      });
+    document.getElementById('left').style.opacity = 1;     
+});
 document.getElementById('right').addEventListener ("touchstart", function() {
     keys.right = true;
-    document.getElementById('right').style.opacity = 1;     });
+    document.getElementById('right').style.opacity = 1;     
+});
 document.getElementById('acc').addEventListener ("touchstart", function() {
     keys.up = true;
-    document.getElementById('acc').style.opacity = 1;       });
+    document.getElementById('acc').style.opacity = 1;       
+});
 document.getElementById('brake').addEventListener ("touchstart", function() {
     keys.down = true;
-    document.getElementById('brake').style.opacity = 1;     });
+    document.getElementById('brake').style.opacity = 1;     
+});
 
 
 document.getElementById('left').addEventListener ("touchend", function(){
     document.getElementById('left').style.opacity = 0.7;
     keys.left = false; 
-    steerTime = 0;  });
+    steerTimeTS = (new Date()).getTime();  
+});
 document.getElementById('right').addEventListener ("touchend", function(){
     document.getElementById('right').style.opacity = 0.7;
     keys.right = false; 
-    steerTime = 0;  });
+    steerTimeTS = (new Date()).getTime();  
+});
 document.getElementById('acc').addEventListener ("touchend", function(){
     document.getElementById('acc').style.opacity = 0.7;
     keys.up = false; 
-    time = 0;   });
+    timeTS = (new Date()).getTime();   
+});
 document.getElementById('brake').addEventListener ("touchend", function(){
     document.getElementById('brake').style.opacity = 0.7;
     keys.down = false; 
-    time = 0;   });
+    timeTS = (new Date()).getTime();   
+});
 
 
 document.addEventListener ("keydown", function (e) {
@@ -80,19 +89,19 @@ document.addEventListener ("keyup", function(e) {
     e = e || window.event;
     if ( (e.key == "a") || (e.key == "ArrowLeft") ) {
         keys.left = false;
-        steerTime = 0;
+        steerTimeTS = (new Date()).getTime();
     } else if ( (e.key == "d") || (e.key == "ArrowRight") ) {
         keys.right = false;
-        steerTime = 0;
+        steerTimeTS = (new Date()).getTime();
     } else if ( (e.key == "w") || (e.key == "ArrowUp") ) {
         keys.up = false;
-        time = 0;
+        timeTS = (new Date()).getTime();
     } else if ( (e.key == "s") || (e.key == "ArrowDown") ) {
         keys.down = false;
-        time = 0;
+        timeTS = (new Date()).getTime();
     } else if ( e.key == "Control" ) {
         keys.ctrl =  false;
-        time = 0;
+        timeTS = (new Date()).getTime();
     };
 });
 
@@ -113,21 +122,21 @@ acc = {
         };
     },
     start: function() {
-        if (this.lin != 3.5) {
-            time = 0;
-            keepTime = true;
+        if (this.lin != 2.5) {
+            timeTS = (new Date()).getTime();
+            // keepTime = true;
         };
         resSet = true;
         if (Math.trunc(vel.lin) < 0 ) this.lin = 7;
-        this.lin = 3.5;
+        this.lin = 2.5;
     },
     stop: function() {
         this.lin = 0;
     },
     rev: function() {
         if (this.lin != -15 && this.lin != -0.2) {
-            time = 0;
-            keepTime = true;
+            timeTS = (new Date()).getTime();
+            // keepTime = true;
         };
         resSet = true;
         if (Math.trunc(vel.lin) > 0 ) this.lin = -15;
@@ -135,8 +144,8 @@ acc = {
     },
     EB: function() {
         if (this.lin != -115 && this.lin != 65) {
-            time = 0;
-            keepTime = true;
+            timeTS = (new Date()).getTime();
+            // keepTime = true;
         };
         resSet = true;
         if (Math.trunc(vel.lin) > 0 ) this.lin = -115;
@@ -148,7 +157,7 @@ vel = {
     lin_: 0,
     get lin() {
         if (resSet) {
-            return ( (this.lin_>=20000 && (acc.res).toFixed(2)>0)? 20000 : (this.lin_ + acc.res * time) );
+            return ( (this.lin_>=20000 && (acc.res).toFixed(2)>0)? 20000 : (this.lin_ + acc.res * getTime()) );
         } else {
             return 0;
         };
@@ -164,8 +173,8 @@ steer = {
     start: function() {
         this.vel = this.vel;
         if ( this.acc != 0.075 ) {
-            steerTime = 0;
-            keepSteerTime = true;
+            steerTimeTS = (new Date()).getTime();
+            // keepSteerTime = true;
         };
         steerSet = true;
         this.acc = 0.075;
@@ -178,7 +187,7 @@ steer = {
     vel_: 1,
     get vel() {
         if (steerSet) {
-            return ( ( this.vel_>=3 && (this.acc).toFixed(2)>0 )? 3 : (this.vel_ + this.acc * steerTime) );
+            return ( ( this.vel_>=3 && (this.acc).toFixed(2)>0 )? 3 : (this.vel_ + this.acc * getSteerTime()) );
         } else {
             return 1;
         };
@@ -340,8 +349,8 @@ window.onload = function () {
 
     setInterval( function dropTime() {
 
-        if (keepTime) time += 0.03;
-        if (keepSteerTime) steerTime += 0.03;
+        // if (keepTime) time += 0.03;
+        // if (keepSteerTime) steerTime += 0.03;
         if (acc.res != 0) vel.lin = vel.lin;
 
         if ( keys.up ) {
@@ -370,7 +379,7 @@ window.onload = function () {
             };
         };
 
-        document.getElementById("speedo").innerHTML =  `<strong><em>Diagnostic:</em></strong><small> Velocity: ${Math.trunc(vel.lin)}; Acceleration: ${(acc.res).toFixed(2)}; Time: ${time.toFixed(3)} s; Steer Velocity: ${(steer.vel).toFixed(3)}; Steer Time: ${steerTime.toFixed(2)}</small>`;
+        document.getElementById("speedo").innerHTML =  `<strong><em>Diagnostic:</em></strong><small> Velocity: ${Math.trunc(vel.lin)}; Acceleration: ${(acc.res).toFixed(2)}; Time: ${getTime().toFixed(3)} s; Steer Velocity: ${(steer.vel).toFixed(3)}; Steer Time: ${getSteerTime().toFixed(2)}</small>`;
 
         document.getElementById("speed").innerHTML = Math.trunc(CONV_KPH * vel.lin) + "km/h  |  " +
                                                      Math.trunc(CONV_MPH * vel.lin) + "mph  |  " +
