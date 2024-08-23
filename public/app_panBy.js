@@ -153,12 +153,12 @@ acc = {
         else this.lin = -0.2;
     },
     EB: function() {
-        if (this.lin != -115 && this.lin != 65) {
+        if (this.lin != -85 && this.lin != 65) {
             timeTS = (new Date()).getTime();
             // keepTime = true;
         };
         resSet = true;
-        if (vel.lin > 100) this.lin = -65;
+        if (vel.lin > 100) this.lin = -85;
         else if (vel.lin < -100) this.lin = 65;
         else this.lin = 0, vel.lin = 0;
     }
