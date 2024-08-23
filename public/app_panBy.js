@@ -122,9 +122,9 @@ document.addEventListener ("keyup", function(e) {
 acc = {
     lin: 0,
     get res() {
-        if (Math.trunc(vel.lin_) > 0.0000001) {
+        if (Math.trunc(vel.lin_) > 0) {
             return (this.lin - 0.4);
-        } else if (Math.trunc(vel.lin_) < -0.0000001) {
+        } else if (Math.trunc(vel.lin_) < 0) {
             return (this.lin + 0.07);
         } else {
             return this.lin;
@@ -158,8 +158,8 @@ acc = {
             // keepTime = true;
         };
         resSet = true;
-        if (Math.trunc(vel.lin_) > 0.0000001) this.lin = -115;
-        else if (Math.trunc(vel.lin_) < -0.0000001) this.lin = 65;
+        if (Math.trunc(vel.lin_) > 0) this.lin = -115;
+        else if (Math.trunc(vel.lin_) < 0) this.lin = 65;
         else this.lin = 0;
     }
 };
@@ -168,7 +168,7 @@ vel = {
     lin_: 0,
     get lin() {
         if (resSet) {
-            return ( (this.lin_>=20000 && (acc.res).toFixed(2)>0)? 20000 : (this.lin_ + acc.res * getTime()) );
+            return ( (this.lin_>=15000 && (acc.res).toFixed(2)>0)? 15000 : (this.lin_ + acc.res * getTime()) );
         } else {
             return 0;
         };
@@ -363,7 +363,9 @@ window.onload = function () {
         // if (keepTime) time += 0.03;
         // if (keepSteerTime) steerTime += 0.03;
         if (acc.res != 0) vel.lin = vel.lin;
-
+        steer.angle += (   steer.vel * (Math.cbrt(Math.trunc(vel.lin)/10000)) * (keys.left - keys.right)    );
+        traverseBy((-1)* vel.lin * 0.001); moveDest();
+        mapDiv.style.transform = 'rotate(' + steer.angle + 'deg)';
         // if ( keys.up ) {
         //     if ( keys.right || keys.left ) {
         //         acc.start(); steer.start();
@@ -389,17 +391,13 @@ window.onload = function () {
         //         steer.stop(); acc.stop();
         //     };
         // };
+        document.getElementById('compass').style.transform = 'rotate(' + steer.angle + 'deg)';
 
         document.getElementById("speedo").innerHTML =  `<strong><em>Diagnostic:</em></strong><small> Velocity: ${Math.trunc(vel.lin)}; Acceleration: ${(acc.res).toFixed(2)}; Time: ${getTime().toFixed(3)} s; Steer Velocity: ${(steer.vel).toFixed(3)}; Steer Time: ${getSteerTime().toFixed(2)}</small>`;
 
         document.getElementById("speed").innerHTML = Math.trunc(CONV_KPH * vel.lin) + "km/h  |  " +
                                                      Math.trunc(CONV_MPH * vel.lin) + "mph  |  " +
                                                      Math.trunc(CONV_SI * vel.lin)  + "m/s";
-
-        steer.angle += (   steer.vel * (Math.cbrt(Math.trunc(vel.lin)/10000)) * (keys.left - keys.right)    );
-        mapDiv.style.transform = 'rotate(' + steer.angle + 'deg)';
-        document.getElementById('compass').style.transform = 'rotate(' + steer.angle + 'deg)';
-        traverseBy((-1)* vel.lin * 0.001); moveDest();
 
     }, 30);
 
