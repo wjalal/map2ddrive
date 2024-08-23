@@ -52,24 +52,24 @@ document.getElementById('brake').addEventListener ("touchstart", function() {
 
 
 document.getElementById('left').addEventListener ("touchend", function(){
-    document.getElementById('left').style.opacity = 0.7;
     keys.left = false; 
-    steerTimeTS = (new Date()).getTime();  
+    steer.stop();
+    document.getElementById('left').style.opacity = 0.7;
 });
 document.getElementById('right').addEventListener ("touchend", function(){
-    document.getElementById('right').style.opacity = 0.7;
     keys.right = false; 
-    steerTimeTS = (new Date()).getTime();  
+    steer.stop();
+    document.getElementById('right').style.opacity = 0.7;
 });
 document.getElementById('acc').addEventListener ("touchend", function(){
-    document.getElementById('acc').style.opacity = 0.7;
     keys.up = false; 
-    timeTS = (new Date()).getTime();   
+    acc.stop();  
+    document.getElementById('acc').style.opacity = 0.7;
 });
 document.getElementById('brake').addEventListener ("touchend", function(){
-    document.getElementById('brake').style.opacity = 0.7;
     keys.down = false; 
-    timeTS = (new Date()).getTime();   
+    acc.stop();
+    document.getElementById('brake').style.opacity = 0.7;
 });
 
 
@@ -98,19 +98,19 @@ document.addEventListener ("keyup", function(e) {
     e = e || window.event;
     if ( (e.key == "a") || (e.key == "ArrowLeft") ) {
         keys.left = false;
-        steerTimeTS = (new Date()).getTime();
+        steer.stop();
     } else if ( (e.key == "d") || (e.key == "ArrowRight") ) {
         keys.right = false;
-        steerTimeTS = (new Date()).getTime();
+        steer.stop();
     } else if ( (e.key == "w") || (e.key == "ArrowUp") ) {
         keys.up = false;
-        timeTS = (new Date()).getTime();
+        acc.stop();
     } else if ( (e.key == "s") || (e.key == "ArrowDown") ) {
         keys.down = false;
-        timeTS = (new Date()).getTime();
+        acc.stop();
     } else if ( e.key == "Control" ) {
         keys.ctrl =  false;
-        timeTS = (new Date()).getTime();
+        acc.stop();
     };
 });
 
@@ -141,6 +141,7 @@ acc = {
     },
     stop: function() {
         this.lin = 0;
+        timeTS = (new Date()).getTime();
     },
     rev: function() {
         if (this.lin != -15 && this.lin != -0.2) {
@@ -191,6 +192,7 @@ steer = {
     stop: function() {
         this.acc = 0;
         this.vel = 1;
+        steerTimeTS = (new Date()).getTime();
     },
     vel_: 1,
     get vel() {
