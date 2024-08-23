@@ -158,8 +158,8 @@ acc = {
             // keepTime = true;
         };
         resSet = true;
-        if (Math.trunc(vel.lin_) > 0) this.lin = -115;
-        else if (Math.trunc(vel.lin_) < 0) this.lin = 65;
+        if (Math.trunc(vel.lin) > 0) this.lin = -115;
+        else this.lin = 65;
     }
 };
 
