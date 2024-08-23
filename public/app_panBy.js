@@ -158,8 +158,8 @@ acc = {
             // keepTime = true;
         };
         resSet = true;
-        if (Math.trunc(vel.lin_) > 0) this.lin = -115;
-        else if (Math.trunc(vel.lin_) < 0) this.lin = 65;
+        if (Math.trunc(vel.lin) > 0) this.lin = -115;
+        else if (Math.trunc(vel.lin) < 0) this.lin = 65;
         else this.lin = 0;
     }
 };
@@ -364,8 +364,8 @@ window.onload = function () {
         // if (keepSteerTime) steerTime += 0.03;
         if (acc.res != 0) vel.lin = vel.lin;
         steer.angle += (   steer.vel * (Math.cbrt(Math.trunc(vel.lin)/10000)) * (keys.left - keys.right)    );
-        traverseBy((-1)* vel.lin * 0.001); moveDest();
         mapDiv.style.transform = 'rotate(' + steer.angle + 'deg)';
+        traverseBy((-1)* vel.lin * 0.001); moveDest();
         // if ( keys.up ) {
         //     if ( keys.right || keys.left ) {
         //         acc.start(); steer.start();
